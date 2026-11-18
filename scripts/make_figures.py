@@ -16,7 +16,12 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "proposal", "gambar")
-FONT_DIR = "C:/Windows/Fonts"
+# Times hanya ada di Windows; di luar itu dipakai serif yang setara bila terpasang.
+DIR_FONT = ("C:/Windows/Fonts", "/usr/share/fonts/truetype/liberation",
+           "/usr/share/fonts/truetype/dejavu", "/usr/share/fonts/TTF",
+           "/System/Library/Fonts", "/Library/Fonts", os.path.expanduser("~/.fonts"))
+CALON_FONT = {False: ("times.ttf", "LiberationSerif-Regular.ttf", "DejaVuSerif.ttf"),
+              True: ("timesbd.ttf", "LiberationSerif-Bold.ttf", "DejaVuSerif-Bold.ttf")}
 SKALA = 2
 TINTA = (26, 30, 38)
 AKSEN = (31, 79, 168)
@@ -28,8 +33,17 @@ MERAH = (181, 85, 26)
 
 
 def font(besar, tebal=False):
-    nama = "timesbd.ttf" if tebal else "times.ttf"
-    return ImageFont.truetype(os.path.join(FONT_DIR, nama), int(besar * SKALA))
+    """Ambil serif yang ada; kalau tidak ada sama sekali, pakai bawaan Pillow."""
+    ukuran = int(besar * SKALA)
+    for direktori in DIR_FONT:
+        for nama in CALON_FONT[tebal]:
+            jalur = os.path.join(direktori, nama)
+            if os.path.exists(jalur):
+                return ImageFont.truetype(jalur, ukuran)
+    try:
+        return ImageFont.load_default(ukuran)
+    except TypeError:
+        return ImageFont.load_default()
 
 
 def kanvas(lebar, tinggi, warna=KARTU):
