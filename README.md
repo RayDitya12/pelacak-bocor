@@ -71,12 +71,14 @@ Angka di bawah adalah catatan pengukuran kami, dan cara membacanya perlu disebut
 terang-terangan: posisi chip, penandaan bit, dan pemilihan sel diturunkan dari
 `keys/master.key`, jadi menjalankan ulang dengan kunci lain **menghasilkan angka
 per-sel yang berbeda**. Kami mengukur ini dengan sengaja pada clone bersih berkunci
-baru: 41 dari 42 baris `results/serangan.csv` menghasilkan verdict yang sama. Yang
-bergeser hanya satu baris, dan ia duduk tepat di ambang kuorum (JPEG kualitas 40 pada
-citra `smooth`, 1 sel menjadi 2 sel sehingga berubah dari "diam" menjadi "terbaca").
-Yang persisten adalah kesimpulan per kanal, bukan hitungan tiap sel — dan karena kunci
-pengukuran kami tidak kami terbitkan, reproduksi byte-atas-byte dari tabel ini memang
-tidak mungkin.
+baru: 41 dari 42 baris `results/serangan.csv` menghasilkan verdict yang sama, dan pada
+kanal PDF 10 dari 10 baris `results/log_run_pdf.txt` tetap sepakat (gambar PDF 150 dpi
+perlu dibangkitkan lebih dulu dengan `scripts/make_pdf_sample.py`, karena berkas itu
+keluaran, bukan bahan mentah). Yang bergeser di kanal gambar hanya satu baris, dan ia
+duduk tepat di ambang kuorum (JPEG kualitas 40 pada citra `smooth`, 1 sel menjadi 2 sel
+sehingga berubah dari "diam" menjadi "terbaca"). Yang persisten adalah kesimpulan per
+kanal, bukan hitungan tiap sel — dan karena kunci pengukuran kami tidak kami terbitkan,
+reproduksi byte-atas-byte dari tabel ini memang tidak mungkin.
 
 Ringkasan lengkap ada di [`results/ringkasan.md`](results/ringkasan.md), data mentahnya
 di `results/serangan.csv`, `results/kualitas.csv`, `results/waktu.csv`,
