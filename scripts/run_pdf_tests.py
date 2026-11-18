@@ -51,6 +51,9 @@ def selaraskan(halaman, secret, bentuk):
 
 
 def main() -> None:
+    if not os.path.exists(BERKAS):
+        raise SystemExit("materi_bersetifikat.pdf belum ada, jalankan lebih dulu: "
+                         "python scripts/make_pdf_sample.py")
     secret = keys.load_or_create_key(os.path.join(ROOT, "keys", "master.key"))
     page = pdf.render_page(pymupdf.open(BERKAS)[0])
     print(f"halaman 1 berukuran {page.shape[1]}x{page.shape[0]} piksel\n")

@@ -45,11 +45,16 @@ bisa dipakai menyusun sidik jari orang lain.
 
 ## Mulai cepat
 
+Prasyarat: **Python 3.11+** (32-bit bukan; 64-bit) dan pip yang bisa mengakses PyPI.
+Wheel PyMuPDF 2.x dibangun untuk `cp311-abi3`, jadi di Python 3.10 ke bawah pip akan
+menarik PyMuPDF 1.x yang belum diuji dengan kode ini.
+
 ```bash
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
 python scripts/make_samples.py        # bahan uji sintetis 1024x1024
+python scripts/make_pdf_sample.py     # halaman PDF 150 dpi + salinan bersetifikat (nomor 42)
 python scripts/run_tests.py           # kualitas + matriks serangan pada gambar
 python scripts/run_pdf_tests.py       # matriks yang sama pada halaman PDF 150 dpi
 python scripts/probe_robustness.py    # sapuan delta dan ambang kuorum
@@ -62,9 +67,20 @@ python web/app.py                     # antarmuka penyelenggara di http://127.0.
 
 ## Hasil terukur
 
-Seluruh angka di bawah dihasilkan ulang dari kode di repo ini; ringkasan lengkapnya
-ada di [`results/ringkasan.md`](results/ringkasan.md) dan data mentahnya di
-`results/serangan.csv`, `results/kualitas.csv`, `results/waktu.csv`, `results/otentisitas.csv`.
+Angka di bawah adalah catatan pengukuran kami, dan cara membacanya perlu disebut
+terang-terangan: posisi chip, penandaan bit, dan pemilihan sel diturunkan dari
+`keys/master.key`, jadi menjalankan ulang dengan kunci lain **menghasilkan angka
+per-sel yang berbeda**. Kami mengukur ini dengan sengaja pada clone bersih berkunci
+baru: 41 dari 42 baris `results/serangan.csv` menghasilkan verdict yang sama. Yang
+bergeser hanya satu baris, dan ia duduk tepat di ambang kuorum (JPEG kualitas 40 pada
+citra `smooth`, 1 sel menjadi 2 sel sehingga berubah dari "diam" menjadi "terbaca").
+Yang persisten adalah kesimpulan per kanal, bukan hitungan tiap sel — dan karena kunci
+pengukuran kami tidak kami terbitkan, reproduksi byte-atas-byte dari tabel ini memang
+tidak mungkin.
+
+Ringkasan lengkap ada di [`results/ringkasan.md`](results/ringkasan.md), data mentahnya
+di `results/serangan.csv`, `results/kualitas.csv`, `results/waktu.csv`,
+`results/otentisitas.csv`.
 
 Kualitas setelah penyematan (delta 1,2): PSNR 38,48–47,18 dB, SSIM 0,952–0,9966,
 selisih piksel maksimum 5–11. Waktu: semat 0,13–0,33 detik, baca 0,04 detik per materi.
