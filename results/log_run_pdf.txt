@@ -1,0 +1,17 @@
+halaman 1 berukuran 1240x1755 piksel
+
+   bersih              YA     32/32
+   jpeg_q95            YA     32/32
+   jpeg_q80            YA     32/32
+   jpeg_q60            YA     18/32
+   blur_k3             YA     12/32
+   resize_0.5          YA     12/32
+   brightness_+25      TIDAK   0/32
+   contrast_x1.3       TIDAK   0/32
+   crop_5pct_selaras   YA     22/32
+   crop_10pct_selaras  YA     18/32
+
+waktu penelusuran berkas 4 halaman, halaman 3 dipotong 10%:
+   ekstraksi langsung 4 halaman       : 0.3 detik, 1 halaman perlu penyelarasan
+   penyelarasan 1 halaman          : 3.8 detik -> YA 18/32 sel, fraksi 0.10
+   total satu berkas                 : 4.2 detik

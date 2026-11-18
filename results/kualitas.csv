@@ -1,0 +1,4 @@
+citra,psnr_db,ssim,max_abs_diff,ber_before_rs
+smooth,47.18,0.9907,6,0.0006
+texture,46.79,0.9966,5,0.0
+document,38.48,0.952,11,0.0

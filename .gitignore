@@ -1,0 +1,44 @@
+# Kunci penyelenggara: berkas ini yang membuat sistem bisa memalsukan/menuduh.
+keys/
+
+# State sisi penyelenggara: memuat nama dan riwayat terbitan.
+results/roster.csv
+results/label_penerima.csv
+results/ledger.csv
+results/web_server.log
+
+# Log run yang mengumbar path lokal; hasil angkanya tetap ada di CSV dan ringkasan.
+results/log_run_tests.txt
+results/log_run_demo.txt
+scripts/cek_repo_lokal.json
+
+# Semua hasil run: salinan bersetifikat dan materi unggahan.
+web/uploads/
+web/output/
+results/demo/
+assets/samples/materi_bersetifikat.pdf
+
+# Dokumen lomba dan jalur penulisan proposal: memuat NIM/NIP serta dokumen panitia.
+proposal/
+/MANUAL BOOK*
+/TEMPLATE PROPOSAL*
+/_manbook.txt
+/_template.txt
+/review.zip
+/PANDUAN_DEMO.md
+
+# Skrip yang menempelkan identitas tim ke dokumen.
+scripts/isi_identitas.py
+scripts/make_proposal.py
+scripts/revise_proposal.py
+scripts/revise_format.py
+scripts/revise_padat.py
+scripts/kemas_review.py
+scripts/make_kartu_judul.py
+
+# Ruang kerja lokal dan artefak Python.
+.scratch/
+__pycache__/
+*.pyc
+*.zip
+.venv/

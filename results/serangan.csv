@@ -1,0 +1,43 @@
+serangan,deskripsi,id_pulih,sel_valid,sel_total,alasan,citra
+bersih,tanpa proses,YA,24,25,ok,smooth
+jpeg_q95,kirim chat kualitas tinggi,YA,24,25,ok,smooth
+jpeg_q80,unggah portal,YA,23,25,ok,smooth
+jpeg_q60,kompresi sedang,YA,6,25,ok,smooth
+jpeg_q40,kompresi agresif,TIDAK,1,25,"kuorum 2 sel tidak tercapai, hanya 1 sel lolos verifikasi HMAC",smooth
+noise_s5,derau Gaussian sigma 5,YA,16,25,ok,smooth
+noise_s15,derau Gaussian sigma 15,TIDAK,0,25,tidak ada sel yang lolos verifikasi HMAC,smooth
+blur_k3,pengaburan 3 piksel,YA,23,25,ok,smooth
+blur_k7,pengaburan 7 piksel,YA,20,25,ok,smooth
+resize_0.5,perkecil 50% lalu perbesar,YA,23,25,ok,smooth
+brightness_+25,geser kecerahan +25,YA,24,25,ok,smooth
+contrast_x1.3,kontras x1.3,YA,17,25,ok,smooth
+crop_blind,potong 5% tanpa penyelarasan,TIDAK,0,16,tidak ada sel yang lolos verifikasi HMAC,smooth
+crop_selaras,potong 5% lalu diselaraskan ulang ke dimensi asal,YA,15,25,ok,smooth
+bersih,tanpa proses,YA,25,25,ok,texture
+jpeg_q95,kirim chat kualitas tinggi,YA,25,25,ok,texture
+jpeg_q80,unggah portal,YA,25,25,ok,texture
+jpeg_q60,kompresi sedang,YA,25,25,ok,texture
+jpeg_q40,kompresi agresif,YA,23,25,ok,texture
+noise_s5,derau Gaussian sigma 5,YA,23,25,ok,texture
+noise_s15,derau Gaussian sigma 15,TIDAK,0,25,tidak ada sel yang lolos verifikasi HMAC,texture
+blur_k3,pengaburan 3 piksel,YA,25,25,ok,texture
+blur_k7,pengaburan 7 piksel,YA,17,25,ok,texture
+resize_0.5,perkecil 50% lalu perbesar,YA,25,25,ok,texture
+brightness_+25,geser kecerahan +25,YA,25,25,ok,texture
+contrast_x1.3,kontras x1.3,YA,7,25,ok,texture
+crop_blind,potong 5% tanpa penyelarasan,TIDAK,0,16,tidak ada sel yang lolos verifikasi HMAC,texture
+crop_selaras,potong 5% lalu diselaraskan ulang ke dimensi asal,YA,16,25,ok,texture
+bersih,tanpa proses,YA,25,25,ok,document
+jpeg_q95,kirim chat kualitas tinggi,YA,25,25,ok,document
+jpeg_q80,unggah portal,YA,25,25,ok,document
+jpeg_q60,kompresi sedang,YA,25,25,ok,document
+jpeg_q40,kompresi agresif,YA,25,25,ok,document
+noise_s5,derau Gaussian sigma 5,YA,25,25,ok,document
+noise_s15,derau Gaussian sigma 15,YA,22,25,ok,document
+blur_k3,pengaburan 3 piksel,YA,25,25,ok,document
+blur_k7,pengaburan 7 piksel,YA,3,25,ok,document
+resize_0.5,perkecil 50% lalu perbesar,YA,24,25,ok,document
+brightness_+25,geser kecerahan +25,TIDAK,0,25,tidak ada sel yang lolos verifikasi HMAC,document
+contrast_x1.3,kontras x1.3,YA,2,25,ok,document
+crop_blind,potong 5% tanpa penyelarasan,TIDAK,0,16,tidak ada sel yang lolos verifikasi HMAC,document
+crop_selaras,potong 5% lalu diselaraskan ulang ke dimensi asal,YA,16,25,ok,document

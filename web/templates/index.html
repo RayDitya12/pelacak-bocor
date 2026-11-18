@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pelacak Bocor — Penyemat Sidik Jari Materi Digital</title>
+<style>
+:root{
+  --tinta:#14181f;--tenang:#4b5566;--lembut:#7c879a;--garis:#e3e7ee;--latar:#f4f6fa;
+  --kartu:#fff;--aksen:#1f4fa8;--aksen-tua:#163a7e;--aksen-lemah:#eaf0fb;
+  --baik:#0f7a53;--baik-lemah:#e6f5ee;--waspadai:#b5551a;--waspadai-lemah:#fdf1e7;
+  --bayangan:0 1px 2px rgba(20,24,31,.05),0 8px 24px rgba(20,24,31,.06);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,sans-serif;color:var(--tinta);
+  background:var(--latar);line-height:1.55;font-size:15px}
+.kepala{background:var(--kartu);border-bottom:1px solid var(--garis);box-shadow:var(--bayangan)}
+.kepala-dalam{max-width:1080px;margin:0 auto;padding:18px 28px;display:flex;align-items:center;gap:14px}
+.lambang{width:38px;height:38px;flex:none;border-radius:9px;background:var(--aksen);
+  display:grid;place-items:center;color:#fff}
+.merek{font-size:17px;font-weight:650;letter-spacing:-.01em}
+.merek span{display:block;font-size:12.5px;font-weight:400;color:var(--lembut);letter-spacing:0}
+.wadah{max-width:1080px;margin:0 auto;padding:24px 28px 72px}
+.tabs{display:flex;gap:6px;margin-bottom:22px;border-bottom:1px solid var(--garis);flex-wrap:wrap}
+.tab{appearance:none;border:0;background:transparent;padding:11px 16px;font:inherit;font-size:14px;
+  font-weight:550;color:var(--lembut);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab:hover{color:var(--tinta)}
+.tab[aria-selected=true]{color:var(--aksen);border-bottom-color:var(--aksen)}
+.panel[hidden]{display:none}
+.kartu{background:var(--kartu);border:1px solid var(--garis);border-radius:12px;box-shadow:var(--bayangan);
+  padding:26px 28px;margin-bottom:20px}
+.judul-kartu{display:flex;align-items:baseline;gap:10px;margin:0 0 4px;font-size:17px;font-weight:650;letter-spacing:-.01em}
+.angka{font-size:12px;font-weight:700;color:#fff;background:var(--aksen);border-radius:50%;
+  width:21px;height:21px;display:inline-grid;place-items:center;flex:none;align-self:center}
+.lead{margin:0 0 20px;color:var(--tenang);font-size:14px;max-width:66ch}
+.garis-bawah{height:1px;background:var(--garis);margin:22px 0}
+label{display:block;font-size:13.5px;font-weight:600;margin:0 0 6px;color:var(--tinta)}
+.bantuan{font-size:12.5px;color:var(--lembut);margin:5px 0 0}
+input[type=file],input[type=text],textarea,select{width:100%;padding:11px 13px;border:1px solid var(--garis);
+  border-radius:8px;background:#fff;font:inherit;font-size:14px;color:var(--tinta)}
+input[type=file]{padding:9px 11px;background:#fbfcfe}
+input:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--aksen);outline-offset:2px}
+textarea{font-family:ui-monospace,Consolas,monospace;font-size:13px;min-height:112px}
+.tombol{appearance:none;border:0;border-radius:8px;background:var(--aksen);color:#fff;font:inherit;
+  font-size:14.5px;font-weight:600;padding:12px 22px;cursor:pointer;transition:background .15s}
+.tombol:hover{background:var(--aksen-tua)}
+.tombol:disabled{background:#a9b6cf;cursor:progress}
+.tombol-hantu{background:transparent;color:var(--aksen);border:1px solid var(--garis);padding:9px 16px;font-size:13.5px}
+.tombol-hantu:hover{background:var(--aksen-lemah)}
+.pilihan{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.opsi{flex:1 1 240px;display:flex;gap:11px;align-items:flex-start;padding:14px 16px;border:1px solid var(--garis);
+  border-radius:10px;cursor:pointer;background:#fbfcfe;font-weight:500;font-size:14px}
+.opsi:hover{border-color:#c3cfe4}
+.opsi:has(input:checked){border-color:var(--aksen);background:var(--aksen-lemah)}
+.opsi input{margin:3px 0 0;accent-color:var(--aksen)}
+.opsi b{display:block;font-weight:650}
+.opsi small{display:block;color:var(--tenang);font-size:12.5px;margin-top:2px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.baris-daftar{display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:8px;align-items:center}
+.baris-daftar input{font-family:inherit}
+.hapus{border:0;background:transparent;color:var(--lembut);font-size:19px;line-height:1;cursor:pointer;padding:6px}
+.hapus:hover{color:var(--waspadai)}
+.keadaan{border-radius:10px;padding:20px 22px;margin-bottom:20px;border:1px solid var(--garis)}
+.keadaan-baik{background:var(--baik-lemah);border-color:#bfe0cf}
+.keadaan-waspadai{background:var(--waspadai-lemah);border-color:#f2d6bf}
+.status{display:flex;align-items:center;gap:12px}
+.status-ikon{width:40px;height:40px;flex:none;border-radius:50%;display:grid;place-items:center;color:#fff}
+.keadaan-baik .status-ikon{background:var(--baik)}
+.keadaan-waspadai .status-ikon{background:var(--waspadai)}
+.status-teks{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.status-teks small{display:block;font-size:13.5px;font-weight:500;color:var(--tenang);letter-spacing:0;margin-top:3px}
+.meter{height:7px;border-radius:4px;background:#dfe4ec;overflow:hidden;margin:16px 0 6px}
+.meter i{display:block;height:100%;border-radius:4px;background:var(--baik)}
+.keadaan-waspadai .meter i{background:var(--waspadai)}
+.teks-meter{font-size:12.5px;color:var(--tenang)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--garis);vertical-align:top}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--lembut);font-weight:650;background:#fafbfd}
+tr:last-child td{border-bottom:0}
+.rincian{margin-top:14px;border-top:1px solid var(--garis);padding-top:12px}
+.rincian summary{font-size:13px;font-weight:600;color:var(--tenang);cursor:pointer}
+.rincian p,.rincian div{font-size:12.5px;color:var(--tenang)}
+.kode{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--tenang)}
+.flash{border-left:3px solid var(--aksen);background:var(--aksen-lemah);padding:12px 16px;border-radius:0 8px 8px 0;
+  font-size:14px;margin-bottom:18px}
+.flash-eror{border-left-color:var(--waspadai);background:var(--waspadai-lemah)}
+.berlapis{position:fixed;inset:0;background:rgba(244,246,250,.82);backdrop-filter:blur(2px);display:none;
+  place-items:center;z-index:50;text-align:center}
+.berlapis.aktif{display:grid}
+.berlapis p{font-size:15px;font-weight:600;max-width:42ch}
+.berlapis small{display:block;font-weight:400;color:var(--tenang);margin-top:6px}
+.putar{width:34px;height:34px;border:3px solid #c9d5ea;border-top-color:var(--aksen);border-radius:50%;
+  margin:0 auto 16px;animation:putar 1s linear infinite}
+@keyframes putar{to{transform:rotate(360deg)}}
+.cosong{color:var(--lembut);font-size:14px;text-align:center;padding:26px 0}
+footer{max-width:1080px;margin:0 auto;padding:0 28px 40px;color:var(--lembut);font-size:12.5px}
+@media(max-width:760px){.grid-2{grid-template-columns:1fr}.wadah,.kepala-dalam{padding-left:18px;padding-right:18px}}
+</style>
+</head>
+<body>
+
+<div class="kepala">
+  <div class="kepala-dalam">
+    <div class="lambang" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 9.5-4-1.2-7-5-7-9.5V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+    </div>
+    <div class="merek">Pelacak Bocor
+      <span>Setiap berkas yang kamu edarkan membawa identitas penerimanya</span>
+    </div>
+  </div>
+</div>
+
+<div class="wadah">
+  {% for pesan in get_flashed_messages(with_categories=true) %}
+    <div class="flash {{ 'flash-eror' if pesan[0] == 'eror' else '' }}">{{ pesan[1] }}</div>
+  {% endfor %}
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-terbit" data-tab="terbit" aria-selected="true" aria-controls="panel-terbit">1&nbsp;&nbsp;Terbitkan materi</button>
+    <button class="tab" role="tab" id="tab-lacak" data-tab="lacak" aria-selected="false" aria-controls="panel-lacak">2&nbsp;&nbsp;Lacak berkas beredar</button>
+    <button class="tab" role="tab" id="tab-riwayat" data-tab="riwayat" aria-selected="false" aria-controls="panel-riwayat">Riwayat aktivitas</button>
+  </div>
+
+  {% if hasil %}
+  <section class="keadaan {{ 'keadaan-baik' if hasil.ditemukan else 'keadaan-waspadai' }}" aria-live="polite">
+    <div class="status">
+      <div class="status-ikon" aria-hidden="true">
+        {% if hasil.ditemukan %}
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>
+        {% else %}
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 8v5"/><path d="M12 17h.01"/></svg>
+        {% endif %}
+      </div>
+      <div class="status-teks">{{ hasil.utama }}<small>{{ hasil.sampingan }}</small></div>
+    </div>
+    <div class="meter"><i style="width:{{ hasil.fraksi }}%"></i></div>
+    <p class="teks-meter">{{ hasil.meter }}</p>
+    {% if hasil.petunjuk %}<p class="teks-meter" style="margin-top:10px">{{ hasil.petunjuk }}</p>{% endif %}
+    <details class="rincian">
+      <summary>Rincian teknis</summary>
+      <table><thead><tr><th>Bagian</th><th>Penerima</th><th>Terbaca</th><th>Catatan</th></tr></thead>
+      <tbody>
+      {% for b in hasil.halaman %}
+        <tr><td>{{ b.nama }}</td><td>{{ b.penerima or '—' }}</td><td>{{ b.sel }}</td><td>{{ b.catatan or '—' }}</td></tr>
+      {% endfor %}
+      </tbody></table>
+    </details>
+  </section>
+  {% endif %}
+
+  <section class="panel" id="panel-terbit" role="tabpanel" aria-labelledby="tab-terbit">
+    <div class="kartu">
+      <h2 class="judul-kartu"><span class="angka">1</span> Terbitkan materi</h2>
+      <p class="lead">Pilih dulu untuk berapa pihak berkas ini kamu edarkan. Nomor identitas dibuat otomatis, jadi kamu cukup menyebut nama kelas atau penerimanya.</p>
+
+      <form method="post" action="/kedarkan" enctype="multipart/form-data" id="form-terbit">
+        <div class="pilihan">
+          <label class="opsi">
+            <input type="radio" name="cara" value="banyak" checked data-cara="banyak">
+            <span><b>Beberapa penerima sekaligus</b><small>misalnya Kelas A, B, C, D yang ujiannya di hari berbeda</small></span>
+          </label>
+          <label class="opsi">
+            <input type="radio" name="cara" value="satu" data-cara="satu">
+            <span><b>Satu penerima</b><small>misalnya satu berkas untuk satu mahasiswa</small></span>
+          </label>
+        </div>
+
+        <label for="berkas">Berkas materi <span style="font-weight:400;color:var(--lembut)">— PDF, PNG, atau JPG</span></label>
+        <input type="file" id="berkas" name="berkas" accept=".pdf,.png,.jpg,.jpeg" required>
+        <p class="bantuan">PDF diproses halaman per halaman; setiap halaman ikut membawa identitas yang sama, jadi satu halaman yang tersebar tetap bisa dilacak.</p>
+
+        <div class="garis-bawah"></div>
+
+        <div id="bagian-banyak">
+          <label for="daftar">Daftar penerima — satu baris untuk satu pihak</label>
+          <div id="baris-daftar"></div>
+          <button type="button" class="tombol tombol-hantu" id="tambah-penerima">+ Tambah penerima</button>
+          <textarea name="daftar" id="daftar" hidden aria-hidden="true"></textarea>
+          <p class="bantuan">Kamu boleh menulis <span class="kode">Kelas A</span> saja, atau sekalian menentukan nomornya sendiri dengan <span class="kode">112,Kelas A</span>.</p>
+        </div>
+
+        <div id="bagian-satu" hidden>
+          <label for="nama-satu">Nama penerima <span style="font-weight:400;color:var(--lembut)">— opsional, untuk catatan</span></label>
+          <input type="text" id="nama-satu" placeholder="misalnya Kelas E">
+          <label for="penerima" style="margin-top:16px">Nomor identitas</label>
+          <input type="number" id="penerima" name="penerima" min="0" max="65535" value="101">
+          <p class="bantuan">Bebas antara 0 dan 65535. Nomor ini yang tertanam di berkas dan yang akan muncul saat berkas dilacak.</p>
+        </div>
+
+        <div class="garis-bawah"></div>
+        <button type="submit" class="tombol" id="kirim-terbit">Terbitkan &amp; unduh</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-lacak" role="tabpanel" aria-labelledby="tab-lacak" hidden>
+    <div class="kartu">
+      <h2 class="judul-kartu"><span class="angka">2</span> Lacak berkas beredar</h2>
+      <p class="lead">Unggah berkas yang tersebar — screenshot, hasil kirim lewat chat, atau salinan yang dipotong. Sistem membacanya tanpa perlu tahu ke siapa saja kamu mengirim.</p>
+      <form method="post" action="/telusuri" enctype="multipart/form-data" id="form-lacak">
+        <label for="bocor">Berkas yang beredar</label>
+        <input type="file" id="bocor" name="berkas" accept=".pdf,.png,.jpg,.jpeg" required>
+        <div class="garis-bawah"></div>
+        <label for="acuan">Berkas asal <span style="font-weight:400;color:var(--lembut)">— hanya jika berkasnya dipotong</span></label>
+        <input type="file" id="acuan" name="acuan" accept=".pdf,.png,.jpg,.jpeg">
+        <p class="bantuan">Kalau berkas hanya dikompres atau dikirim lewat chat, tidak perlu diisi. Kalau potongannya tidak rata, lampirkan induk materi yang kamu edarkan supaya posisinya bisa diselaraskan.</p>
+        <div class="garis-bawah"></div>
+        <button type="submit" class="tombol">Periksa berkas</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-riwayat" role="tabpanel" aria-labelledby="tab-riwayat" hidden>
+    <div class="kartu">
+      <h2 class="judul-kartu">Riwayat aktivitas</h2>
+      <p class="lead">Setiap penerbitan dan penelusuran dicatat sebagai jejak audit, tersimpan di <span class="kode">results/ledger.csv</span>.</p>
+      {% if rows %}
+      <table>
+        <thead><tr><th>Waktu</th><th>Kegiatan</th><th>Berkas</th><th>Identitas</th><th>Hasil</th></tr></thead>
+        <tbody>
+        {% for r in rows %}
+          <tr>
+            <td>{{ r[0] }}</td>
+            <td>{{ {'semat':'Menerbitkan satu salinan','kedarkan':'Menerbitkan banyak salinan','telusuri':'Menelusuri berkas'}.get(r[1], r[1]) }}</td>
+            <td>{{ r[2] }}</td>
+            <td>{{ r[3] or '—' }}</td>
+            <td>{{ r[4] }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% else %}<p class="cosong">Belum ada aktivitas tercatat.</p>{% endif %}
+    </div>
+  </section>
+</div>
+
+<footer>Digunakan lokal di komputer penyelenggara. Berkas terbitan hanya membawa nomor, bukan nama — pemetaan nomor ke nama tersimpan di <span class="kode">results/roster.csv</span> dan tidak ikut tersebar.</footer>
+
+<div class="berlapis" id="berlapis">
+  <div>
+    <div class="putar"></div>
+    <p id="berlapis-teks">Berkas sedang diproses…<small>PDF butuh waktu lebih lama: setiap halaman disemat dan diperiksa ulang.</small></p>
+  </div>
+</div>
+
+<script>
+const tabTombol = document.querySelectorAll('.tab');
+function bukaTab(nama){
+  tabTombol.forEach(t => {
+    const aktif = t.dataset.tab === nama;
+    t.setAttribute('aria-selected', aktif);
+    document.getElementById('panel-' + t.dataset.tab).hidden = !aktif;
+  });
+}
+tabTombol.forEach(t => t.addEventListener('click', () => bukaTab(t.dataset.tab)));
+if ({{ 'true' if hasil else 'false' }}) bukaTab('lacak');
+
+const waduk = document.getElementById('baris-daftar');
+function baris(isi){
+  const b = document.createElement('div');
+  b.className = 'baris-daftar';
+  b.innerHTML = '<input type="text" placeholder="Kelas A" aria-label="Nama penerima">' +
+                '<button type="button" class="hapus" title="Hapus baris" aria-label="Hapus baris">&times;</button>';
+  if (isi) b.firstChild.value = isi;
+  b.lastChild.addEventListener('click', () => { if (waduk.children.length > 1) b.remove(); });
+  waduk.appendChild(b);
+}
+['Kelas A','Kelas B','Kelas C','Kelas D'].forEach(baris);
+document.getElementById('tambah-penerima').addEventListener('click', () => baris(''));
+
+const form = document.getElementById('form-terbit');
+form.addEventListener('submit', (e) => {
+  const banyak = form.cara.value === 'banyak';
+  document.getElementById('penerima').disabled = banyak;
+  if (banyak){
+    const nama = [...waduk.children].map(b => b.firstChild.value.trim()).filter(Boolean);
+    if (!nama.length){
+      e.preventDefault();
+      alert('Isi dulu minimal satu nama penerima.');
+      return;
+    }
+    document.getElementById('daftar').value = nama.join('\n');
+  } else {
+    form.action = '/sematkan';
+    const input = document.createElement('input');
+    input.type = 'hidden'; input.name = 'nama'; input.value = document.getElementById('nama-satu').value.trim();
+    form.appendChild(input);
+    const buang = form.querySelector('[name=daftar]');
+    if (buang) buang.disabled = true;
+  }
+});
+document.querySelectorAll('[data-cara]').forEach(r => r.addEventListener('change', () => {
+  const banyak = r.value === 'banyak';
+  document.getElementById('bagian-banyak').hidden = !banyak;
+  document.getElementById('bagian-satu').hidden = banyak;
+  document.getElementById('kirim-terbit').textContent = banyak ? 'Terbitkan & unduh bundel' : 'Terbitkan & unduh';
+}));
+document.getElementById('kirim-terbit').textContent = 'Terbitkan & unduh bundel';
+
+const tirai = document.getElementById('berlapis');
+document.querySelectorAll('form').forEach(f => f.addEventListener('submit', () => {
+  const tombol = f.querySelector('button[type=submit]');
+  if (tombol){ tombol.disabled = true; }
+  tirai.classList.add('aktif');
+}));
+</script>
+</body>
+</html>
